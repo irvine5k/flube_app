@@ -8,6 +8,6 @@ A Youtube player and favorites app to show BLoC usage.
   flutter run
 ```
 # Screenshots
-![alt text](https://github.com/irvine5k/flube_app/blob/master/search.jpeg)
-![alt text](https://github.com/irvine5k/flube_app/blob/master/favorites.jpeg)
-![alt text](https://github.com/irvine5k/flube_app/blob/master/player.jpeg)
+![alt text](https://github.com/irvine5k/flube_app/blob/master/search.png)
+![alt text](https://github.com/irvine5k/flube_app/blob/master/favorites.png)
+![alt text](https://github.com/irvine5k/flube_app/blob/master/player.png)
