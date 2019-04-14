@@ -1,14 +1,30 @@
+import 'dart:convert';
+import 'dart:async';
 import 'package:flube/models/video.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'dart:async';
+import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteBloc implements BlocBase {
   Map<String, Video> _favorites = {};
 
   final StreamController<Map<String, Video>> _favController =
-      StreamController<Map<String, Video>>();
-      
+      BehaviorSubject<Map<String, Video>>(seedValue: {});
+
   Stream<Map<String, Video>> get outFav => _favController.stream;
+
+  FavoriteBloc() {
+    SharedPreferences.getInstance().then((prefs) {
+      if (prefs.getKeys().contains('favorites')) {
+        _favorites =
+            json.decode(prefs.getString('favorites')).map((key, value) {
+          return MapEntry(key, Video.fromJson(value));
+        }).cast<String, Video>();
+
+        _favController.add(_favorites);
+      }
+    });
+  }
 
   void toggleFavorite(Video video) {
     if (_favorites.containsKey(video.id))
@@ -17,6 +33,14 @@ class FavoriteBloc implements BlocBase {
       _favorites[video.id] = video;
 
     _favController.sink.add(_favorites);
+
+    _saveFav();
+  }
+
+  void _saveFav() {
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString('favorites', json.encode(_favorites));
+    });
   }
 
   @override
