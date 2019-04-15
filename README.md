@@ -4,7 +4,7 @@ A Youtube player and favorites app to show BLoC usage.
 
 # How to run:
 ```bash
-  cd probleminha_app
+  cd flube_app
   flutter run
 ```
 # Screenshots
